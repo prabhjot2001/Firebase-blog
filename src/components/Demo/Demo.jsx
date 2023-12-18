@@ -1,10 +1,13 @@
 import React from 'react'
+import Banner from './Auth/Banner'
+import Trending from './Trending'
 
 const Demo = () => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <Banner/>
+      <Trending/>
+    </>
   )
 }
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { nav } from "../../data.js";
+import Auth from "./Auth/Auth.jsx";
 
 const DemoHeader = () => {
+  const [modal, setModal] = useState(false);
   const [isActive, setIsActive] = useState(false);
   useEffect(() => {
     const scrollMe = () => {
@@ -12,7 +14,7 @@ const DemoHeader = () => {
   }, []);
   return (
     <header
-      className={`border-b border-black sticky top-0 z-99 
+      className={`border-b border-black sticky top-0 z-20
     ${isActive ? "bg-white" : "bg-banner"}
     transition-all duration-500`}
     >
@@ -47,10 +49,13 @@ const DemoHeader = () => {
           </h1>
         </Link>
 
-        <div className="flex items-center gap-5">
+        <div
+          className={`flex items-center gap-5 ${
+            isActive ? "text-gray-900" : "text-white"
+          }`}
+        >
           <div
-            className={`hidden text-sm sm:flex items-center gap-5 ${
-              isActive ? "text-gray-900" : "text-white"
+            className={`hidden text-sm sm:flex items-center gap-5 
             }`}
           >
             {nav.map((link, i) => (
@@ -61,14 +66,17 @@ const DemoHeader = () => {
           </div>
           <div className="relative">
             <button
+              onClick={() => setModal(true)}
               className={`hidden text-sm sm:flex items-center gap-5 ${
                 isActive ? "text-gray-900" : "text-white"
               }`}
             >
               Login
             </button>
+            <Auth setModal={setModal} modal={modal} />
           </div>
           <button
+            onClick={() => setModal(true)}
             className={`text-white rounded-md px-3 p-2 font-medium ${
               isActive ? "bg-blue-700" : "bg-blue-700"
             }`}

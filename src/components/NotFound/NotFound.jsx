@@ -8,7 +8,12 @@ const NotFound = () => {
       {/* <video src="/404v1.mp4" loop autoPlay muted className="w-[500px] h-[400px]"></video> */}
       <h1 className="font-bold text-4xl text-gray-900">Oops!</h1>
       <h1 className="font-bold text-3xl text-gray-900">404 Page Not Found</h1>
-      <Link to="/" className=' px-[20px] py-[10px] bg-blue-800 mt-[40px] text-white'>Back to Homepage</Link>
+      <Link
+        to="/"
+        className="rounded-md px-[20px] py-[10px] bg-blue-800 mt-[40px] text-white"
+      >
+        Back to Homepage
+      </Link>
     </div>
   );
 };
