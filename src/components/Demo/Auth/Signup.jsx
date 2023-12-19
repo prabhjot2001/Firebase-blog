@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../../utils/Input";
 import { IoChevronBack } from "react-icons/io5";
 
-const Signup = ({setSignReq}) => {
+const Signup = ({setSignReq, }) => {
   return (
     <div className=" text-center w-full small">
       <h2 className="font-bold text-gray-900 text-3xl mb-3">Sign Up</h2>

@@ -11,7 +11,10 @@ const Auth = ({modal, setModal}) => {
   const [userExists, setUserExists] = useState(false)
   const [SignReq, setSignReq] = useState("")
   const hidden = `${modal?"visible opacity-100" : "invisible opacity-0"} transition-all duration-400`
-
+  const handleState = () =>{
+    setModal(false);
+    setSignReq("")
+  }
   return (
     
     <Modal setModal={setModal} modal={modal} hidden={hidden}>
@@ -19,7 +22,7 @@ const Auth = ({modal, setModal}) => {
       <section className={`z-99 fixed w-[400px] max-h-full rounded-2xl p-8 bg-white text-black small ${hidden}`}>
         
         {/*------------ Close button ------------ */}
-        <button onClick={()=>setModal(false)} className="absolute top-5 left-5 hover:bg-gray-300 rounded-md p-1">
+        <button onClick={handleState} className="absolute top-5 left-5 hover:bg-gray-300 rounded-md p-1">
           <LiaTimesSolid />
         </button>
 
@@ -49,7 +52,7 @@ const Auth = ({modal, setModal}) => {
                 textColor={"text-gray-800"}
               />
               <Button
-              click={()=> setSignReq(userExists? "sign-in": "sign-up")}
+              click={()=> {setSignReq(userExists? "sign-in": "sign-up"); }}
                 icon={<MdMailOutline className="text-2xl" />}
                 text={` ${userExists? "Sign In": "Sign Up"} with email`}
                 color={"bg-blue-600"}
@@ -68,10 +71,12 @@ const Auth = ({modal, setModal}) => {
 
           </>) 
           : SignReq==="sign-in" ?(
-            <Signin setSignReq={setSignReq}/>
-          ): SignReq ==="sign-up" ? (
-            <Signup setSignReq={setSignReq}/>
-          ):null}
+            <Signin setSignReq={setSignReq} />
+          ): SignReq ==="sign-up"? (
+            <Signup setSignReq={setSignReq} />
+          ):
+          null
+          }
 
 
           <p className="text-center text-sm text-gray-500">
