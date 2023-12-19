@@ -5,10 +5,10 @@ import Demo from './components/Demo/Demo'
 import NotFound from './components/NotFound/NotFound'
 import HomeHeader from './components/Home/HomeHeader'
 import DemoHeader from './components/Demo/DemoHeader'
+import { Blog } from './Context/Context'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(false)
-
+  const {currentUser} = Blog();
   return (
     <>
     {currentUser ? <HomeHeader/> : <DemoHeader/>}
