@@ -7,7 +7,7 @@ import {getStorage} from 'firebase/storage'
 import {getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "",
+  apiKey: "", // add your api key here
   authDomain: "blog-rush.firebaseapp.com",
   projectId: "blog-rush",
   storageBucket: "blog-rush.appspot.com",

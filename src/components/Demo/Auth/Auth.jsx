@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../../utils/Modal";
+// ***************************  react-icons  ***************************
 import { LiaTimesSolid } from "react-icons/lia";
 import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookCircle } from "react-icons/bi";
@@ -27,6 +28,7 @@ const Auth = ({ modal, setModal }) => {
           const createUser = await signInWithPopup(authentication, authProvider)
           const newUser = createUser.user;
           const ref = doc(db, "users", newUser.uid);
+
           const userDoc = await getDoc(ref);
 
           if(!userDoc.exists()){
@@ -109,9 +111,9 @@ const Auth = ({ modal, setModal }) => {
               </p>
             </>
           ) : SignReq === "sign-in" ? (
-            <Signin setSignReq={setSignReq} />
+            <Signin setModal={setModal} setSignReq={setSignReq} />
           ) : SignReq === "sign-up" ? (
-            <Signup setSignReq={setSignReq} />
+            <Signup setModal={setModal} setSignReq={setSignReq} />
           ) : null}
 
           <p className="text-center text-sm text-gray-500">

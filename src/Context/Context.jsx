@@ -23,7 +23,7 @@ const Context = ({ children }) => {//this one is used to wrap a component
         setLoading(false)
       })
       return () => unsubscribe();
-    },8000)
+    },)
     
   },[currentUser])
 

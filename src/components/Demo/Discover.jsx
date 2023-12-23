@@ -12,10 +12,10 @@ const Discover = () => {
             <button key={i} className="bg-gray-200 py-2 px-4 text-sm text-gray-900 rounded-full">{item}</button>
           ))}
         </div>
-        <button className='py-2 px-4 rounded-full text-gray-800 border-double border-4 border-green-600 hover:text-black hover:border-blue-600'>Discover more</button>
+        <button className='py-2 px-4 rounded-full text-white bg-blue-700'>Discover more</button>
       </div>
       <div className="flex flex-wrap gap-3 items-center mt-5">
-        {discoverActions.map((item,i)=>(<button className="text-gray-700 font-normal border-b-2 border-green-600 hover:text-green-600" key={i}>{item}</button>))}
+        {discoverActions.map((item,i)=>(<button className="text-gray-700 font-normal  pb-[2px]  border-gray-500 hover:text-blue-800 hover:border-b-[2px] hover:pb-0" key={i}>{item}</button>))}
       </div>
     </div>
   );

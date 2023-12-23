@@ -1,14 +1,11 @@
 import React from "react";
 
-const Modal = ({ children, modal, setModal, hidden }) => {
+const Modal = ({ children,  hidden }) => {
   return (
     <>
       <div
-        // onClick={() => setModal(false)}
         className={`bg-black/50 fixed inset-0 z-10 flex justify-center items-center ${hidden}`}>
-
-        {children}
-        
+        {children}  
       </div>
     </>
   );

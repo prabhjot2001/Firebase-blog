@@ -6,12 +6,14 @@ import NotFound from './components/NotFound/NotFound'
 import HomeHeader from './components/Home/HomeHeader'
 import DemoHeader from './components/Demo/DemoHeader'
 import { Blog } from './Context/Context'
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   const {currentUser} = Blog();
   return (
     <>
     {currentUser ? <HomeHeader/> : <DemoHeader/>}
+    <ToastContainer />
       <Routes>
          {currentUser && <Route path='/' element={<Home/>}/>}
          {!currentUser &&  <Route path='/demo' element={<Demo/>}/>}
