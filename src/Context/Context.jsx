@@ -17,13 +17,14 @@ const Context = ({ children }) => {//this one is used to wrap a component
       const unsubscribe = onAuthStateChanged(authentication, (user)=>{
         if(user) {
           setCurrentUser(user)
-        }else{
+        }
+        else{
           setCurrentUser(null)
         }
         setLoading(false)
       })
       return () => unsubscribe();
-    },)
+    },1000)
     
   },[currentUser])
 
