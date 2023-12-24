@@ -9,11 +9,18 @@ import Modal from "../../../utils/Modal";
 import UserModal from "./UserModal";
 import { LuSearch } from "react-icons/lu";
 import { Blog } from "../../../Context/Context";
+import Loading from "../../loading/Loading";
 
 
 const HomeHeader = () => {
   const [modal, setModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
+  
+  const {allUsers} = Blog()
+  const {currentUser} = Blog()
+  const {userLoading} = Blog();
+
+  const getUserData = allUsers.find((user) => user.id === currentUser?.uid)
 
   const hidden = `${
     modal ? "visible opacity-100" : "invisible opacity-0"
@@ -28,11 +35,8 @@ const HomeHeader = () => {
   }, []);
 
   return (
-    <header
-      className={`border-b border-black sticky top-0 z-20
-    ${isActive ? "bg-white" : "bg-banner"}
-    transition-all duration-500`}
-    >
+    <header className={`border-b border-black sticky top-0 z-20 ${isActive ? "bg-white" : "bg-banner"} transition-all duration-500`} >
+       {userLoading && <Loading/>}
       <div className="size h-[60px] flex items-center justify-between">
         {/*--------------- left side ---------------*/}
         <div className="flex gap-4 items-center">
@@ -97,7 +101,7 @@ const HomeHeader = () => {
           </span>
 
           <div className="flex items-center relative gap-3">
-            <img onClick={() => setModal(true)}  src="/profile2.png" alt="profile image" className="h-[40px] w-[40px] border-2 object-cover cursor-pointer rounded-full border-gray-100" />
+            <img onClick={() => setModal(true)}  src={getUserData?.userImg || '/profile2.png'} alt="profile image" className="h-[40px] w-[40px] border-2 object-cover cursor-pointer rounded-full border-gray-100" />
             <span className=" cursor-pointer" onClick={() => setModal(true)}>
               <IoIosArrowDown />
             </span>

@@ -13,7 +13,7 @@ import { hiddenEmail } from '../../../utils/helper';
 const UserModal = ({setModal, modal}) => {
     
     const {currentUser} = Blog()
-    console.log(currentUser.uid)
+    // console.log(currentUser.uid)
     const userModal = [
         {
             title : "Profile",
