@@ -7,12 +7,16 @@ import Search from "../Search";
 import { IoIosArrowDown } from "react-icons/io";
 import Modal from "../../../utils/Modal";
 import UserModal from "./UserModal";
-
-
+import { LuSearch } from "react-icons/lu";
+import { Blog } from "../../../Context/Context";
 
 const HomeHeader = () => {
-  const [modal, setModal] = useState(false)
-  const hidden = `${  modal ? "visible opacity-100" : "invisible opacity-0"} transition-all duration-400`;
+  const [modal, setModal] = useState(false);
+  const [searchModal, setSearchModal] = useState(false);
+
+  const hidden = `${
+    modal ? "visible opacity-100" : "invisible opacity-0"
+  } transition-all duration-400`;
   const [isActive, setIsActive] = useState(true);
   // **************useEffect will handle the scroll functionality **************
   useEffect(() => {
@@ -29,7 +33,7 @@ const HomeHeader = () => {
     transition-all duration-500`}
     >
       <div className="size h-[60px] flex items-center justify-between">
-        {/* left side */}
+        {/*--------------- left side ---------------*/}
         <div className="flex gap-4 items-center">
           <Link to="/" className="flex gap-4 items-center">
             <span>
@@ -55,48 +59,60 @@ const HomeHeader = () => {
               </svg>
             </span>
             <h1
-              className={`font-bold text-gray-700 text-3xl ${
+              className={`font-bold text-gray-700 text-2xl ${
                 isActive ? "text-gray-900" : "text-white"
-              }`}
+              } sm:text-3xl`}
             >
               BlogRush
             </h1>
           </Link>
-          <Search />
+          <span className="hidden sm:table w-full">
+            <Search/>
+          </span>
         </div>
 
-        {/* right side */}
-        <div className="flex items-center gap-3 sm:gap-7">
-          <Link
-            to="/write"
-            className="hidden md:flex items-center gap-1 text-gray-600"
-          >
+        {/*------------------ right side ------------------*/}
+        <div
+          className={`flex items-center gap-3 sm:gap-7 ${
+            isActive ? "text-gray-900" : "text-white"
+          } `}>
+
+          {/* <span
+            onClick={() => setSearchModal(true)}
+            className="text-2xl text-gray-400 flex sm:hidden cursor-pointer z-10">
+            <LuSearch />
+          </span> */}
+
+          <Link to="/write" className="hidden md:flex items-center gap-1 ">
             <span className="text-3xl">
               <FaRegPenToSquare />
             </span>
             <span className="text-sm mt-2">Start Writing</span>
           </Link>
-          <span className="text-3xl text-gray-600 cursor-pointer">
+
+
+          <span className="text-3xl  cursor-pointer">
             <AiOutlineBell />
           </span>
+
           <div className="flex items-center relative gap-3">
-            <img
-            onClick={() => setModal(true)}
-              src="/profile2.png"
-              alt="profile image"
-              className="h-[40px] w-[40px] border-2 object-cover cursor-pointer rounded-full border-blue-600"
-            />
-            <span className="text-gray-600 cursor-pointer" onClick={()=>setModal(true)}>
+            <img onClick={() => setModal(true)}  src="/profile2.png" alt="profile image" className="h-[40px] w-[40px] border-2 object-cover cursor-pointer rounded-full border-gray-100" />
+            <span className=" cursor-pointer" onClick={() => setModal(true)}>
               <IoIosArrowDown />
             </span>
-            <div onClick={()=>setModal(false)} >
-              <Modal modal={modal} setModal={setModal} hidden={hidden}/>
-              <div className={`${modal?"visible opacity-100" : "invisible opacity-0"} `}>
-                  <UserModal modal={modal} setModal={setModal}/>
+
+            <div>
+              <Modal modal={modal} setModal={setModal} hidden={hidden} />
+              <div className={`${modal ? "visible opacity-100" : "invisible opacity-0"}`}>
+                <UserModal modal={modal} setModal={setModal} />
               </div>
             </div>
           </div>
+
         </div>
+      </div>
+      <div className="sm:hidden p-2">
+        <Search/>
       </div>
     </header>
   );
