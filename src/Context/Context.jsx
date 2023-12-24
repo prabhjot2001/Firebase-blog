@@ -9,59 +9,68 @@ import { db } from "../fireBase/firebase";
 
 const BlogContext = createContext();
 
-const Context = ({ children }) => {//this one is used to wrap a component
+const Context = ({ children }) => {
+  //this one is used to wrap a component
   const [currentUser, setCurrentUser] = useState(false);
-  const [loading, setLoading] = useState(true)
-  const [allUsers, setAllusers] = useState([])
-  const [userLoading , setUserLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [allUsers, setAllusers] = useState([]);
+  const [userLoading, setUserLoading] = useState(true);
+  const [publish, setPublish] = useState(false)
 
   //*************** updating the user so that after authentication we can go to the   */
-  useEffect(()=>{
-    setTimeout(()=>{
-      const unsubscribe = onAuthStateChanged(authentication, (user)=>{
-        if(user) {
-          setCurrentUser(user)
+  useEffect(() => {
+    setTimeout(() => {
+      const unsubscribe = onAuthStateChanged(authentication, (user) => {
+        if (user) {
+          setCurrentUser(user);
+        } else {
+          setCurrentUser(null);
         }
-        else{
-          setCurrentUser(null)
-        }
-        setLoading(false)
-      })
+        setLoading(false);
+      });
       return () => unsubscribe();
-    },1000)
-    
-  },[currentUser]);
+    }, 1000);
+  }, [currentUser]);
 
   //***************fetch all the data from the firebase******************
-  useEffect(()=>{
-    const getUser = () =>{
+  useEffect(() => {
+    const getUser = () => {
       const postRef = query(collection(db, "users"));
-      onSnapshot(postRef,(snapshot) => {
+      onSnapshot(postRef, (snapshot) => {
         setAllusers(
-          snapshot.docs.map((doc,i)=>({
+          snapshot.docs.map((doc, i) => ({
             ...doc.data(),
-            id : doc.id
+            id: doc.id,
           }))
-        )
-        setUserLoading(false)
-      } )
+        );
+        setUserLoading(false);
+      });
     };
-    getUser(); // explicitly calling getUser function 
-  },[])
+    getUser(); // explicitly calling getUser function
+  }, []);
   // console.log(allUsers)
   //
 
   return (
-    <BlogContext.Provider value={{ currentUser, setCurrentUser, setAllusers, allUsers, userLoading}}>
-      {loading? <Loading/> : children}
+    <BlogContext.Provider
+      value={{
+        currentUser,
+        setCurrentUser,
+        setAllusers,
+        allUsers,
+        userLoading,
+        publish,
+        setPublish
+      }}
+    >
+      {loading ? <Loading /> : children}
     </BlogContext.Provider>
   );
 };
 
 export default Context;
 
-export const Blog = () => {// this one is used to manipulate a context
-    return(
-        useContext(BlogContext)
-    )
+export const Blog = () => {
+  // this one is used to manipulate a context
+  return useContext(BlogContext);
 };

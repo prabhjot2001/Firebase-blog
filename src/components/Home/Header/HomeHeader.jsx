@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { FaRegPenToSquare } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AiOutlineBell } from "react-icons/ai";
 import Search from "../Search";
 import { IoIosArrowDown } from "react-icons/io";
@@ -10,17 +10,18 @@ import UserModal from "./UserModal";
 import { LuSearch } from "react-icons/lu";
 import { Blog } from "../../../Context/Context";
 import Loading from "../../loading/Loading";
-
+import { FaEarthAmericas } from "react-icons/fa6";
 
 const HomeHeader = () => {
   const [modal, setModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
-  
-  const {allUsers} = Blog()
-  const {currentUser} = Blog()
-  const {userLoading} = Blog();
+  const {pathname} = useLocation()
 
-  const getUserData = allUsers.find((user) => user.id === currentUser?.uid)
+  const { allUsers } = Blog();
+  const { currentUser } = Blog();
+  const { userLoading } = Blog();
+
+  const getUserData = allUsers.find((user) => user.id === currentUser?.uid);
 
   const hidden = `${
     modal ? "visible opacity-100" : "invisible opacity-0"
@@ -33,10 +34,15 @@ const HomeHeader = () => {
     };
     window.addEventListener("scroll", scrollMe);
   }, []);
+  const {publish, setPublish} = Blog();
 
   return (
-    <header className={`border-b border-black sticky top-0 z-20 ${isActive ? "bg-white" : "bg-banner"} transition-all duration-500`} >
-       {userLoading && <Loading/>}
+    <header
+      className={`border-b border-black sticky top-0 z-20 ${
+        isActive ? "bg-white" : "bg-banner"
+      } transition-all duration-500`}
+    >
+      {userLoading && <Loading />}
       <div className="size h-[60px] flex items-center justify-between">
         {/*--------------- left side ---------------*/}
         <div className="flex gap-4 items-center">
@@ -72,7 +78,7 @@ const HomeHeader = () => {
             </h1>
           </Link>
           <span className="hidden sm:table w-full">
-            <Search/>
+            <Search />
           </span>
         </div>
 
@@ -80,44 +86,51 @@ const HomeHeader = () => {
         <div
           className={`flex items-center gap-3 sm:gap-7 font-normal ${
             isActive ? "text-gray-900" : "text-white"
-          } `}>
-
+          } `}
+        >
           {/* <span
             onClick={() => setSearchModal(true)}
             className="text-2xl text-gray-400 flex sm:hidden cursor-pointer z-10">
             <LuSearch />
           </span> */}
 
-          <Link to="/write" className="hidden md:flex items-center gap-1 ">
+          {pathname === '/write' ? <button onClick={()=>setPublish(true)} className="bg-blue-700 flex gap-3 items-center rounded-full text-white py-2 px-6">Publish <FaEarthAmericas/></button> : (<Link to="/write" className="hidden md:flex items-center gap-1 ">
             <span className="text-3xl">
               <FaRegPenToSquare />
             </span>
             <span className="text-sm mt-2">Start Writing</span>
-          </Link>
-
+          </Link>)}
 
           <span className="text-3xl  cursor-pointer">
             <AiOutlineBell />
           </span>
 
           <div className="flex items-center relative gap-3">
-            <img onClick={() => setModal(true)}  src={getUserData?.userImg || '/profile2.png'} alt="profile image" className="h-[40px] w-[40px] border-2 object-cover cursor-pointer rounded-full border-gray-100" />
+            <img
+              onClick={() => setModal(true)}
+              src={getUserData?.userImg || "/profile2.png"}
+              alt="profile image"
+              className="h-[40px] w-[40px] border-2 object-cover cursor-pointer rounded-full border-gray-100"
+            />
             <span className=" cursor-pointer" onClick={() => setModal(true)}>
               <IoIosArrowDown />
             </span>
 
             <div>
               <Modal modal={modal} setModal={setModal} hidden={hidden} />
-              <div className={`${modal ? "visible opacity-100" : "invisible opacity-0"}`}>
+              <div
+                className={`${
+                  modal ? "visible opacity-100" : "invisible opacity-0"
+                }`}
+              >
                 <UserModal modal={modal} setModal={setModal} />
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <div className="sm:hidden p-2">
-        <Search/>
+        <Search />
       </div>
     </header>
   );

@@ -14,7 +14,6 @@ const Profile = () => {
   const { allUsers } = Blog();
   const { userId } = useParams();
 
-
   const activities = [
     {
       title: "Home",
@@ -33,7 +32,6 @@ const Profile = () => {
   const [modal, setModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
-
   // *** finding a current user data from allUsers ***
   const getUserData = allUsers.find((user) => user.id === userId);
   // console.log('testing the current user data, fixed context bug')
@@ -43,7 +41,9 @@ const Profile = () => {
       {/* left section */}
       <div className="mt-[9rem] flex-[2] ">
         <div className="flex items-end gap-4 ">
-          <h2 className="font-semibold text-3xl sm:text-4xl">{getUserData?.username}</h2>
+          <h2 className="font-semibold text-3xl sm:text-4xl">
+            {getUserData?.username}
+          </h2>
           <p className="text-gray-500 text-xs sm:text-sm">followers(189M)</p>
           <p className="text-gray-500 text-xs sm:text-sm">following(1)</p>
         </div>
@@ -65,7 +65,7 @@ const Profile = () => {
           ))}
         </div>
         <div>
-             {/* *** dynamic component *** */}
+          {/* *** dynamic component *** */}
           <currentAcitivity.component getUserData={getUserData} />
         </div>
         <button className="fixed top-30 right-0 text-2xl text-gray-900 md:hidden">
@@ -96,9 +96,9 @@ const Profile = () => {
         {/* profile */}
         <div className="sticky top-[7] flex flex-col justify-between gap-3">
           <img
-            src={getUserData?.userImg || '/profile2.png'}
+            src={getUserData?.userImg || "/profile2.png"}
             alt=""
-            className="h-10 w-10 object-cover rounded-full"
+            className="h-[150px] w-[150px] object-cover rounded-full border-2 border-gray-300"
           />
           <h2 className="font-semibold text-xl">Prabhjot singh</h2>
           <p>Lorem ipsum dolor sit amet.</p>
@@ -112,7 +112,11 @@ const Profile = () => {
         </div>
       </div>
       {editModal ? (
-        <EditProfile setEditModal={setEditModal} editModal={editModal} getUserData={getUserData}/>
+        <EditProfile
+          setEditModal={setEditModal}
+          editModal={editModal}
+          getUserData={getUserData}
+        />
       ) : null}
     </section>
   );
