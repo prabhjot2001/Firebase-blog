@@ -10,6 +10,7 @@ import UserModal from "./UserModal";
 import { LuSearch } from "react-icons/lu";
 import { Blog } from "../../../Context/Context";
 
+
 const HomeHeader = () => {
   const [modal, setModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
@@ -73,7 +74,7 @@ const HomeHeader = () => {
 
         {/*------------------ right side ------------------*/}
         <div
-          className={`flex items-center gap-3 sm:gap-7 ${
+          className={`flex items-center gap-3 sm:gap-7 font-normal ${
             isActive ? "text-gray-900" : "text-white"
           } `}>
 
